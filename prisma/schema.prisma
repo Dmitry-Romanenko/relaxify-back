@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type Img {
+  url  String?
+  publicId String?
+}
+
+type Sound {
+  url  String?
+  publicId String?
+  duration Float?
+}
+
+enum Label {
+  Meditation
+  Article
+  Sound
+}
+
+model Meditation {
+  id      String      @id @default(auto()) @map("_id") @db.ObjectId
+  title String @unique
+  subtitle String
+  slug String? @unique
+  tag String
+  img Img?
+  label Label?
+  sound Sound?
+  description String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Music {
+  id      String      @id @default(auto()) @map("_id") @db.ObjectId
+  title String @unique
+  subtitle String
+  slug String? @unique
+  tag String
+  img Img?
+  label Label?
+  sound Sound?
+  description String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Article {
+  id      String      @id @default(auto()) @map("_id") @db.ObjectId
+  title String @unique
+  slug String? @unique
+  tag String
+  img Img?
+  label Label?
+  description String
+  duration Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+
+
+
